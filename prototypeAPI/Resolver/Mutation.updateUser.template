@@ -1,0 +1,51 @@
+## Below example shows how to create an object from all provided GraphQL arguments
+## The primary key of the obejct is a randomly generated UUD using the $util.autoId() utility
+## Other utilities include $util.matches() for regular expressions, $util.time.nowISO8601() or 
+##   $util.time.nowEpochMilliSeconds() for timestamps, and even List or Map helpers like
+##   $util.list.copyAndRetainAll() $util.map.copyAndRemoveAllKeys() for shallow copies
+## Read more: https://docs.aws.amazon.com/appsync/latest/devguide/resolver-context-reference.html#utility-helpers-in-util
+
+{
+    "version" : "2017-02-28",
+    "operation" : "UpdateItem",
+    "key" : {
+        ##"id" : { "S" : "$context.args.id" }
+        "id" :$util.dynamodb.toStringJson($ctx.identity.sub)
+    },
+    "update" : {
+        "expression" : "SET email = :email, #name = :name, career = :career, avatarUri = :avatarUri, message = :message",
+        "expressionNames" : {
+        	"#name" : "name",
+    	},
+        "expressionValues": {
+        #if($ctx.args.user.email)
+            ":email" : { "S": "$context.arguments.user.email" },
+            ##":email"　:$util.dynamodb.toStringjson($ctx.args.user.email),
+		#end
+        #if($ctx.args.user.name)
+            ##":name" : { "S": "$context.arguments.user.name" },
+            ":name":$util.dynamodb.toStringJson($ctx.args.user.name),
+        #end
+        #if($ctx.args.user.career)
+            ##":career" : { "S": "$context.arguments.user.career" },
+            ":career":$util.dynamodb.toDynamoDBJson($ctx.args.user.career),
+        #end
+        #if($ctx.args.user.avatarUri)
+            ##":avatorUri" : { "S": "$context.arguments.user.avatorUri" },
+            ":avatarUri":$util.dynamodb.toStringJson($ctx.args.user.avatarUri),
+        #end
+        #if($ctx.args.user.message)
+            ##":message" : { "S": "$context.arguments.user.message }
+            ":message":$util.dynamodb.toStringJson($ctx.args.user.message),
+        #end
+           ##"email"　:$util.dynamodb.toString($ctx.args.email)
+           ##"name":$util.dynamodb.toString($ctx.args.name)
+           ##"career":$util.dynamodb.toString($ctx.args.career)
+           ##"avator:$util.dynamodb.toString($ctx.args.avator)
+      	}
+    }
+    ##"condition" : {
+    	##idが一致した場合のみ実行
+     	##"expression" : "attribute_not_exists(id)"
+  	##}
+}
