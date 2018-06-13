@@ -1,0 +1,22 @@
+{
+    "version" : "2017-02-28",
+    "operation" : "PutItem",
+    "key" : {
+        ## If object "id" should come from GraphQL arguments, change to $util.dynamodb.toDynamoDBJson($ctx.args.id)
+        "id": $util.dynamodb.toDynamoDBJson($util.autoId()),
+    },
+    "attributeValues" :{
+    	##if($ctx.source.userId)
+          "userId"     : $util.dynamodb.toStringJson($context.identity.sub),
+          "title"      : $util.dynamodb.toDynamoDBJson($context.args.work.title),
+          #if($ctx.args.work.tags)
+              "tags"   : $util.dynamodb.toStringSetJson($ctx.args.work.tags),
+          #end
+          ##"tags": $util.dynamodb.toDynamoDB($context.args.tags),
+          "createdAt"  : {"N": $util.time.nowEpochSeconds()},
+          "imageUri"   : $util.dynamodb.toDynamoDBJson($context.args.work.imageUri),
+          "description":$util.dynamodb.toDynamoDBJson($context.args.work.description)
+        ##else
+        ##end  
+	},
+}
