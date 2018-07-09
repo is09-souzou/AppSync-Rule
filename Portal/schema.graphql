@@ -1,0 +1,93 @@
+# Mutation
+type Mutation {
+	createUser(user: UserCreate!): User
+	updateUser(user: UserUpdate!): User
+	deleteUser(id: ID!): User
+	createWork(work: WorkCreate!): Work
+	updateWork(work: WorkUpdate!): Work
+	deleteWork(id: ID!): Work
+}
+
+# Query
+type Query {
+	getUser(id: ID!): User
+	listUsers(limit: Int, exclusiveStartKey: ID): UserConnection
+	getWork(id: ID!, userId: ID!): Work
+	listWorks(limit: Int, exclusiveStartKey: ID, option: WorkQueryOption): WorkConnection
+}
+
+type User {
+	id: ID!
+	email: String
+	displayName: String!
+	career: String
+	avatarUri: String
+	message: String
+	works(limit: Int, exclusiveStartKey: ID): WorkConnection
+}
+
+type UserConnection {
+	items: [User]
+	exclusiveStartKey: ID
+}
+
+input UserCreate {
+	displayName: String!
+	email: String
+	career: String
+	avatarUri: String
+	message: String
+}
+
+input UserUpdate {
+	id: ID!
+	displayName: String
+	email: String
+	career: String
+	message: String
+	avatarUri: String
+}
+
+type Work {
+	id: ID!
+	userId: ID!
+	tags: [String]
+	createdAt: Int!
+	title: String!
+	imageUri: [String]!
+	description: String!
+}
+
+type WorkConnection {
+	items: [Work]
+	exclusiveStartKey: ID
+}
+
+input WorkCreate {
+	userId: ID!
+	title: String!
+	tags: [String]
+	imageUri: [String]!
+	description: String!
+}
+
+input WorkQueryOption {
+	tags: [String]
+	word: String
+	userId: ID
+}
+
+input WorkUpdate {
+	id: ID!
+	userId: ID
+	tags: [String]
+	title: String
+	imageUri: [String]
+	description: String
+}
+
+schema {
+	query: Query
+	mutation: Mutation
+}
+

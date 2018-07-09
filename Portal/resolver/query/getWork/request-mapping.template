@@ -6,3 +6,4 @@
       "userId": $util.dynamodb.toStringJson($ctx.args.userId)
     }
 }
+
