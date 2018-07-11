@@ -11,17 +11,13 @@ type Mutation {
 }
 
 type PopularTag {
-	tag: String
-	itemCount: Int
-}
-
-type PopularTagConnection {
-	items: [PopularTag]
+	name: String!
+	count: Int!
 }
 
 input PopularTagInput {
-	tag: String
-	itemCount: Int
+	name: String
+	count: Int
 }
 
 # Query
@@ -30,7 +26,7 @@ type Query {
 	listUsers(limit: Int, exclusiveStartKey: ID): UserConnection
 	getWork(id: ID!, userId: ID!): Work
 	listWorks(limit: Int, exclusiveStartKey: ID, option: WorkQueryOption): WorkConnection
-	getPopularTag: PopularTagConnection
+	listPopularTags: [PopularTag]
 }
 
 type User {
@@ -107,4 +103,3 @@ schema {
 	query: Query
 	mutation: Mutation
 }
-
