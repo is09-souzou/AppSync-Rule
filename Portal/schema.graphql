@@ -7,7 +7,7 @@ type Mutation {
 	updateWork(work: WorkUpdate!): Work
 	deleteWork(id: ID!): Work
 	createPopularTag(item: PopularTagInput): PopularTag
-	updatePopularTag(item: PopularTagInput): PopularTag
+	incrementPopularTagCount(name: String!): PopularTag
 }
 
 type PopularTag {

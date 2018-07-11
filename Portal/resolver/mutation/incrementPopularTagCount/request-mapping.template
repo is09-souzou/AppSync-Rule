@@ -1,0 +1,16 @@
+{
+    "version": "2017-02-28",
+    "operation": "UpdateItem",
+    "key": {
+        "name": $util.dynamodb.toDynamoDBJson($ctx.args.name),
+    },
+    "update": {
+        "expression": "ADD #c :count",
+        "expressionValues": {
+            ":count" : $util.dynamodb.toDynamoDBJson(1)
+        },
+        "expressionNames": {
+            "#c": "count",
+        }
+    },
+}
