@@ -6,6 +6,8 @@ type Mutation {
 	createWork(work: WorkCreate!): Work
 	updateWork(work: WorkUpdate!): Work
 	deleteWork(id: ID!): Work
+	//createPopularTag(item: PopularTagInput): PopularTag
+	//updatePopularTag(item: PopularTagInput): PopularTag
 }
 
 # Query
@@ -14,6 +16,15 @@ type Query {
 	listUsers(limit: Int, exclusiveStartKey: ID): UserConnection
 	getWork(id: ID!, userId: ID!): Work
 	listWorks(limit: Int, exclusiveStartKey: ID, option: WorkQueryOption): WorkConnection
+	getPopularTag: PopularTagConnection
+}
+type PopularTag {
+	tag: String
+	itemCount: Int
+}
+type PopularTagConnection {
+	items: [PopularTag]
+	exclusiveStartKey: ID
 }
 
 type User {
@@ -60,7 +71,6 @@ type Work {
 
 type WorkConnection {
 	items: [Work]
-	exclusiveStartKey: ID
 }
 
 input WorkCreate {
@@ -84,6 +94,10 @@ input WorkUpdate {
 	title: String
 	imageUri: [String]
 	description: String
+}
+input popularTagInput {
+	tag:String
+	itemCount:Int
 }
 
 schema {
