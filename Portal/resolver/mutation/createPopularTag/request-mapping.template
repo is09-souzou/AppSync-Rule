@@ -9,3 +9,4 @@
     	"itemCount": $util.dynamodb.toDynamoDBJson(0)
   	}
 }
+
