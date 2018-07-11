@@ -3,9 +3,9 @@
     "operation" : "PutItem",
     "key" : {
         ## If object "id" should come from GraphQL arguments, change to $util.dynamodb.toDynamoDBJson($ctx.args.id)
-        "tag": $util.dynamodb.toDynamoDBJson($ctx.args.item.tag)
+        "name": $util.dynamodb.toDynamoDBJson($ctx.args.item.name)
     },
     "attributeValues" : {
-    	"itemCount": $util.dynamodb.toDynamoDBJson(0)
+    	"count": $util.dynamodb.toDynamoDBJson($ctx.args.item.count)
   	}
 }

@@ -1,5 +1,4 @@
 {
     "version" : "2017-02-28",
     "operation" : "Scan",
-    "index":"tag-itemCount-index"
 }
