@@ -24,7 +24,7 @@ input PopularTagInput {
 type Query {
 	getUser(id: ID!): User
 	listUsers(limit: Int, exclusiveStartKey: ID): UserConnection
-	getWork(id: ID!, userId: ID!): Work
+	getWork(id: ID!): Work
 	listWorks(limit: Int, exclusiveStartKey: ID, option: WorkQueryOption): WorkConnection
 	listPopularTags: [PopularTag]
 }
