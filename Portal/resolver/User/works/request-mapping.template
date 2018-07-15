@@ -3,7 +3,11 @@
     "operation": "Invoke",
     "payload": {
         "field": "connectionWorks",
-        "arguments":$utils.toJson($context.arguments),
+        "arguments": {
+        	"userId": $context.source.id,
+            "limit": $context.arguments.limit,
+            "exclusiveStartKey": $context.arguments.exclusiveStartKey
+        },
         "identity":$utils.toJson($context.identity)
     }
 }
