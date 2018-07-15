@@ -2,12 +2,12 @@
     "version" : "2017-02-28",
     "operation": "Invoke",
     "payload": {
-        "field": "workConnection",
+        "field": "connectionWork",
         "arguments": {
-        	"userId": $context.source.id,
-            "limit": $context.arguments.limit,
-            "exclusiveStartKey": $context.arguments.exclusiveStartKey
+        	"userId": $utils.toJson($context.source.id),
+            "limit": $utils.toJson($context.arguments.limit),
+            "exclusiveStartKey": $utils.toJson($context.arguments.exclusiveStartKey)
         },
-        "identity":$utils.toJson($context.identity)
+        "identity": $utils.toJson($context.identity)
     }
 }
