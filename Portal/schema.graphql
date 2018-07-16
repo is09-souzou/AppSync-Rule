@@ -67,7 +67,7 @@ type Work {
 	tags: [String]
 	createdAt: Int!
 	title: String!
-	imageUris: [String]
+	imageUrl: String
 	description: String!
 }
 
@@ -80,7 +80,7 @@ input WorkCreate {
 	userId: ID!
 	title: String!
 	tags: [String]
-	imageUris: [String]
+	imageUrl: String
 	description: String!
 }
 
@@ -95,7 +95,7 @@ input WorkUpdate {
 	userId: ID
 	tags: [String]
 	title: String
-	imageUris: [String]
+	imageUrl: String
 	description: String
 }
 
