@@ -6,18 +6,11 @@ type Mutation {
 	createWork(work: WorkCreate!): Work
 	updateWork(work: WorkUpdate!): Work
 	deleteWork(id: ID!): Work
-	createPopularTag(item: PopularTagInput): PopularTag
-	incrementPopularTagCount(name: String!): PopularTag
 }
 
 type PopularTag {
 	name: String!
 	count: Int!
-}
-
-input PopularTagInput {
-	name: String
-	count: Int
 }
 
 # Query
@@ -36,7 +29,8 @@ type User {
 	career: String
 	avatarUri: String
 	message: String
-	works(limit: Int, exclusiveStartKey: ID): WorkConnection
+	skillList: [String]
+	works(limit: Int, exclusiveStartKey: ID, userId: ID): WorkConnection
 }
 
 type UserConnection {
@@ -50,6 +44,7 @@ input UserCreate {
 	career: String
 	avatarUri: String
 	message: String
+	skillList: [String]
 }
 
 input UserUpdate {
@@ -59,6 +54,7 @@ input UserUpdate {
 	career: String
 	message: String
 	avatarUri: String
+	skillList: [String]
 }
 
 type Work {
@@ -69,12 +65,14 @@ type Work {
 	title: String!
 	imageUrl: String
 	description: String!
-	user: User!
+	isPublic: Boolean
+	user: User
 }
 
 type WorkConnection {
 	items: [Work]
 	exclusiveStartKey: ID
+	userID: ID
 }
 
 input WorkCreate {
@@ -82,6 +80,7 @@ input WorkCreate {
 	title: String!
 	tags: [String]
 	imageUrl: String
+	isPublic: Boolean
 	description: String!
 }
 
@@ -98,6 +97,7 @@ input WorkUpdate {
 	title: String
 	imageUrl: String
 	description: String
+	isPublic: Boolean
 }
 
 schema {
